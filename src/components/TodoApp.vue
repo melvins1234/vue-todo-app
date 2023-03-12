@@ -14,7 +14,8 @@ import TodoListVue from './TodoList.vue'
         <div class="todo p-3 list-group overflow-auto mh-100">
             <ul class="todo__list list-unstyled">
                 <li class="d-flex justify-content-between py-2 align-items-center" v-for="(item, index) in list" :key="item.index">
-                    <TodoListVue :item="item" :index="index" @deleteTodo="deleteToMyTodo"/>
+                    {{updateLocalStorage}}
+                    <TodoListVue :item=item :index=index.toString() @deleteTodo="deleteToMyTodo" @updateTodo="updateMyTodo"/>
                 </li>
             </ul>
         </div>
@@ -27,35 +28,30 @@ export default {
         return {
             todo: '',
             text: 'Edit',
-            list: ["Todo 1","Todo 2"]
+            list: []
+            // list: ["Todo 1","Todo 2"]
         }
     },
     mounted() {
-
+        this.list = localStorage.getItem("myTodo") ? JSON.parse(localStorage.getItem("myTodo")) : []
+    },
+    computed : {
+        updateLocalStorage() {
+            this.list ? localStorage.setItem("myTodo", JSON.stringify(this.list)) : []
+        }
     },
     methods: {
         addToMyTodo() {
             if(this.todo !== '')
-                this.list.push(this.todo)
+                this.list.unshift(this.todo)
 
             this.todo = ''
         },
         deleteToMyTodo(id){
             this.list.splice(id, 1);
         },
-        editToMyTodo(id){
-            let inputDiv = this.$refs.todoItem[id]
-
-            if(inputDiv.querySelector("#todo-edit-update").getAttribute("aria-toggle") == "false") {
-                inputDiv.querySelector("#todo-input").removeAttribute("disabled")
-                inputDiv.querySelector("#todo-input").focus()
-                inputDiv.querySelector("#todo-edit-update").innerText = "Update";
-                inputDiv.querySelector("#todo-edit-update").setAttribute("aria-toggle", "true")
-            } else {
-                inputDiv.querySelector("#todo-input").setAttribute("disabled", "true");
-                inputDiv.querySelector("#todo-edit-update").innerText = "Edit";
-                inputDiv.querySelector("#todo-edit-update").setAttribute("aria-toggle", "false")
-            }
+        updateMyTodo(data) {
+            console.log();
         }
     }
 }
