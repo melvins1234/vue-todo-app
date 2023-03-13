@@ -14,7 +14,6 @@ import TodoListVue from './TodoList.vue'
         <div class="todo p-3 list-group overflow-auto mh-100">
             <ul class="todo__list list-unstyled">
                 <li class="d-flex justify-content-between py-2 align-items-center" v-for="(item, index) in list" :key="item.index">
-                    {{updateLocalStorage}}
                     <TodoListVue :item=item :index=index.toString() @deleteTodo="deleteToMyTodo" @updateTodo="updateMyTodo"/>
                 </li>
             </ul>
@@ -29,16 +28,18 @@ export default {
             todo: '',
             text: 'Edit',
             list: []
-            // list: ["Todo 1","Todo 2"]
         }
     },
     mounted() {
         this.list = localStorage.getItem("myTodo") ? JSON.parse(localStorage.getItem("myTodo")) : []
     },
-    computed : {
-        updateLocalStorage() {
-            this.list ? localStorage.setItem("myTodo", JSON.stringify(this.list)) : []
-        }
+    watch: {
+        list: {
+            deep: true,
+            handler() {
+                localStorage.setItem("myTodo", JSON.stringify(this.list))
+            }
+        },
     },
     methods: {
         addToMyTodo() {
@@ -51,7 +52,8 @@ export default {
             this.list.splice(id, 1);
         },
         updateMyTodo(data) {
-            console.log();
+            console.log(data);
+            this.list[data.index] = data.todo
         }
     }
 }
