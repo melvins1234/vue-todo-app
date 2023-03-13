@@ -33,9 +33,6 @@ export default {
     mounted() {
         this.list = localStorage.getItem("myTodo") ? JSON.parse(localStorage.getItem("myTodo")) : []
     },
-    computed : {
-   
-    },
     watch: {
         list: {
             deep: true,

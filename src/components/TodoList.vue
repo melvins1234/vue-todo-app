@@ -1,6 +1,5 @@
 <template>
     <div class="input-group" ref="todoItem">
-        <!-- <input id="todo-input" type="text" class="form-control" aria-describedby="button-addon4" :value=todoItem @input="event => todoItem = event.target.value" :disabled="disableInput" ref="todo"> -->
         <input id="todo-input" type="text" class="form-control" aria-describedby="button-addon4" v-model=todoItem ref="todo" :disabled="disableInput">
         <div class="input-group-append" id="button-addon4">
             <button id="todo-edit-update" @click="editToMyTodo()" class="btn btn-primary" aria-toggle="false"> {{text}} </button> 
