@@ -1,13 +1,32 @@
-<script setup lang="ts">
-import TodoAppVue from "./components/TodoApp.vue";
+<script>
+import NavbarVue from "@/components/Navbar.vue";
+import { useLoggedInStore } from '@/stores/loggedIn'
+import { computed } from "vue";
+
+export default {
+  setup() {
+    const isLoggedIn = useLoggedInStore();
+    const auth = computed(() => isLoggedIn.checkedLoggedIn.loggedIn)
+
+    return { auth }
+  },
+  components: {
+    NavbarVue
+  }
+}
 </script>
 
 <template>
-  <header class="justify-content-center pb-5 flex-column">
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-    <h2>Todo App</h2>
-  </header>
-    <TodoAppVue />
+  <div>
+      <header class="justify-content-center pb-5 flex-column">
+        <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+        <h2>Todo App</h2>
+        <NavbarVue v-show=auth />
+      </header>
+      <section>
+        <RouterView />
+      </section>
+  </div>
 </template>
 
 <style scoped>
