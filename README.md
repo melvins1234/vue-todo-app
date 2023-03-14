@@ -1,5 +1,13 @@
 # TodoApp
 
+An Todo application that has simple features that uses Vue js as a frontend framework.
+
+# Credentials
+```sh
+Username: sample@sample.com
+Password: 12345
+```
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup

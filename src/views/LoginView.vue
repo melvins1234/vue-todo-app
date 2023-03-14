@@ -8,8 +8,8 @@
 
             let isError = ref(false)
             let form = ref({
-                email: 'sample@sample.com',
-                password: '12345'
+                email: '',
+                password: ''
             })
             let defaultCreds = {
                 email: 'sample@sample.com',
