@@ -1,5 +1,5 @@
 <script setup>
-import TodoListVue from './TodoList.vue'
+import TodoListVue from '../components/TodoList.vue'
 </script>
 
 <template>
@@ -52,7 +52,6 @@ export default {
             this.list.splice(id, 1);
         },
         updateMyTodo(data) {
-            console.log(data);
             this.list[data.index] = data.todo
         }
     }
